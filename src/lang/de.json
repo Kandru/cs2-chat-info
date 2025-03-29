@@ -1,0 +1,4 @@
+{
+    "core.debugprint": "[ChatInfo][DEBUG]: {message}",
+    "core.config": "[ChatInfo] Konfiguration geladen"
+}
