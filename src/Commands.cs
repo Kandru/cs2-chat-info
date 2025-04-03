@@ -1,4 +1,3 @@
-using CounterStrikeSharp.API;
 using CounterStrikeSharp.API.Core;
 using CounterStrikeSharp.API.Core.Attributes.Registration;
 using CounterStrikeSharp.API.Modules.Commands;
@@ -9,6 +8,9 @@ namespace ChatInfo
 {
     public partial class ChatInfo
     {
+        [ConsoleCommand("?", "shows all commands on this server")]
+        [ConsoleCommand("commands", "shows all commands on this server")]
+        [ConsoleCommand("help", "shows all commands on this server")]
         [ConsoleCommand("info", "shows all commands on this server")]
         [CommandHelper(whoCanExecute: CommandUsage.CLIENT_ONLY, minArgs: 0, usage: "")]
         public void CommandInfo(CCSPlayerController player, CommandInfo command)

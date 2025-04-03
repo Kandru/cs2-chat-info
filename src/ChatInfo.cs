@@ -1,5 +1,4 @@
 using CounterStrikeSharp.API.Core;
-using CounterStrikeSharp.API.Modules.Events;
 
 namespace ChatInfo
 {
@@ -10,17 +9,12 @@ namespace ChatInfo
 
         public override void Load(bool hotReload)
         {
-            RegisterEventHandler<EventPlayerChat>(OnPlayerChat);
+            // ON LOAD
         }
 
         public override void Unload(bool hotReload)
         {
-            DeregisterEventHandler<EventPlayerChat>(OnPlayerChat);
-        }
-
-        private HookResult OnPlayerChat(EventPlayerChat @event, GameEventInfo info)
-        {
-            return HookResult.Continue;
+            // ON UNLOAD
         }
     }
 }

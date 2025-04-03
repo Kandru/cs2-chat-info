@@ -26,6 +26,13 @@ This plugin automatically creates a readable JSON configuration file. This confi
   "enabled": true,
   "debug": false,
   "messages": {
+    "-\u003E Discord": {
+      "description": {
+        "en": "visit https://counterstrike.party",
+        "de": "besuche https://counterstrike.party"
+      },
+      "sub_commands": {}
+    },
     "!as": {
       "description": {
         "en": "Airstrike Status",
@@ -101,6 +108,15 @@ This plugin automatically creates a readable JSON configuration file. This confi
   "ConfigVersion": 1
 }
 ```
+
+## Commands
+
+Commands players can use to invoke the chat info:
+
+- !?
+- !commands
+- !help
+- !info
 
 
 ## Compile Yourself
