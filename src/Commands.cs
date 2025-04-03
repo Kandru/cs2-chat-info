@@ -1,5 +1,6 @@
 using CounterStrikeSharp.API.Core;
 using CounterStrikeSharp.API.Core.Attributes.Registration;
+using CounterStrikeSharp.API.Core.Translations;
 using CounterStrikeSharp.API.Modules.Commands;
 using CounterStrikeSharp.API.Modules.Extensions;
 using CounterStrikeSharp.API.Modules.Menu;
@@ -21,9 +22,16 @@ namespace ChatInfo
             // create menu to choose map
             var menu = new ChatMenu(Localizer["menu.title"]);
             foreach (var kvp in Config.Messages)
-                menu.AddMenuOption(kvp.Key + " = " + kvp.Value.Description["en"],
-                    (_, _) => DisplaySubCommands(player, kvp.Key),
-                    kvp.Value.SubCommands.Count > 0 ? false : true);
+            {
+                string description = kvp.Value.Description.TryGetValue(PlayerLanguageExtensions.GetLanguage(player).TwoLetterISOLanguageName, out var userDescription)
+                ? userDescription
+                : (kvp.Value.Description.TryGetValue(CoreConfig.ServerLanguage, out var serverDescription)
+                    ? serverDescription
+                    : kvp.Value.Description.First().Value);
+                menu.AddMenuOption(kvp.Key + " = " + description,
+            (_, _) => DisplaySubCommands(player, kvp.Key),
+            kvp.Value.SubCommands.Count > 0 ? false : true);
+            }
             // open menu
             MenuManager.OpenChatMenu(player, menu);
         }
@@ -42,7 +50,14 @@ namespace ChatInfo
             var menu = new ChatMenu(Localizer["menu.subtitle"].Value
                 .Replace("{command}", commandName));
             foreach (var kvp in command.SubCommands)
-                menu.AddMenuOption(commandName + " " + kvp.Key + " = " + kvp.Value.Description["en"], (_, _) => { }, true);
+            {
+                string description = kvp.Value.Description.TryGetValue(PlayerLanguageExtensions.GetLanguage(player).TwoLetterISOLanguageName, out var userDescription)
+                ? userDescription
+                : (kvp.Value.Description.TryGetValue(CoreConfig.ServerLanguage, out var serverDescription)
+                    ? serverDescription
+                    : kvp.Value.Description.First().Value);
+                menu.AddMenuOption(commandName + " " + kvp.Key + " = " + description, (_, _) => { }, true);
+            }
             MenuManager.OpenChatMenu(player, menu);
         }
 
