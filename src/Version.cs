@@ -2,6 +2,6 @@ namespace ChatInfo
 {
     public partial class ChatInfo
     {
-        public override string ModuleVersion => "0.0.3";
+        public override string ModuleVersion => "0.0.4";
     }
 }
