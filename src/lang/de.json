@@ -1,4 +1,8 @@
 {
     "core.debugprint": "[ChatInfo][DEBUG]: {message}",
-    "core.config": "[ChatInfo] Konfiguration geladen"
+    "core.config": "[ChatInfo] Konfiguration geladen",
+    "admin.unknown_command": "[ChatInfo] Unbekannter Befehl: {command}",
+    "admin.reload": "[ChatInfo] Konfiguration neu geladen",
+    "menu.title": "[ChatInfo] Verfügbare Befehle",
+    "menu.subtitle": "[ChatInfo] Verfügbare Optionen für {command}"
 }

@@ -22,7 +22,84 @@ Updating is even easier: simply overwrite all plugin files and they will be relo
 This plugin automatically creates a readable JSON configuration file. This configuration file can be found in `/addons/counterstrikesharp/configs/plugins/ChatInfo/ChatInfo.json`.
 
 ```json
-
+{
+  "enabled": true,
+  "debug": false,
+  "messages": {
+    "!as": {
+      "description": {
+        "en": "Airstrike Status",
+        "de": "Status Luftunterst\u00FCtzung"
+      },
+      "sub_commands": {}
+    },
+    "!c": {
+      "description": {
+        "en": "Toggles the Challenge Overview",
+        "de": "Challenge-\u00DCbersicht ein/aus"
+      },
+      "sub_commands": {}
+    },
+    "!cl \u003Cmapname\u003E": {
+      "description": {
+        "en": "Vote to change to a specific map",
+        "de": "Voting f\u00FCr eine bestimmte Karte"
+      },
+      "sub_commands": {}
+    },
+    "!nom \u003Cmapname\u003E": {
+      "description": {
+        "en": "Nominate a map for voting",
+        "de": "Nominiere eine Karte f\u00FCrs Voting"
+      },
+      "sub_commands": {}
+    },
+    "!noms": {
+      "description": {
+        "en": "Lists all nominations so far",
+        "de": "Listet alle aktuellen Nominierungen"
+      },
+      "sub_commands": {}
+    },
+    "!rtd": {
+      "description": {
+        "en": "Roll The Dice",
+        "de": "W\u00FCrfeln"
+      },
+      "sub_commands": {
+        "auto": {
+          "description": {
+            "en": "Roll The Dice automatically",
+            "de": "Automatisch w\u00FCrfeln"
+          },
+          "sub_commands": {}
+        }
+      }
+    },
+    "!rtv": {
+      "description": {
+        "en": "Rock The Vote",
+        "de": "Rock The Vote"
+      },
+      "sub_commands": {}
+    },
+    "!top": {
+      "description": {
+        "en": "Lists players with best rankings",
+        "de": "Spieler mit den h\u00F6chsten R\u00E4ngen"
+      },
+      "sub_commands": {}
+    },
+    "!topc": {
+      "description": {
+        "en": "Lists players with most solved Challenges",
+        "de": "Spieler mit den meisten Herausforderungen"
+      },
+      "sub_commands": {}
+    }
+  },
+  "ConfigVersion": 1
+}
 ```
 
 
@@ -56,14 +133,6 @@ Build release files (to use on a production game server)
 
 ```bash
   dotnet publish
-```
-
-Additionally add the dependencies (if not added already for the panorama-vote-manager):
-
-```bash
-git submodule add https://github.com/Kandru/cs2-panorama-vote-manager.git
-git commit -m "added panorama-vote-manager as a submodule"
-git push
 ```
 
 ## FAQ
