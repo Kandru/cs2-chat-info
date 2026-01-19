@@ -1,5 +1,3 @@
-using CounterStrikeSharp.API;
-using CounterStrikeSharp.API.Core;
 using CounterStrikeSharp.API.Modules.Utils;
 using System.Reflection;
 
@@ -7,17 +5,9 @@ namespace ChatInfo
 {
     public partial class ChatInfo
     {
-        private void DebugPrint(string message)
+        private static string ReplaceChatColors(string message)
         {
-            if (Config.Debug)
-            {
-                Console.WriteLine(Localizer["core.debugprint"].Value.Replace("{message}", message));
-            }
-        }
-
-        private string ReplaceChatColors(string message)
-        {
-            foreach (var field in typeof(ChatColors).GetFields(BindingFlags.Public | BindingFlags.Static))
+            foreach (FieldInfo field in typeof(ChatColors).GetFields(BindingFlags.Public | BindingFlags.Static))
             {
                 string pattern = $"{{{field.Name}}}";
                 if (message.Contains(pattern, StringComparison.OrdinalIgnoreCase))

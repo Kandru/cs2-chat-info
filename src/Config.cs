@@ -28,7 +28,7 @@ namespace ChatInfo
         {
             Config = config;
             // sort messages by key
-            Config.Messages = Config.Messages.OrderBy(x => x.Key).ToDictionary(x => x.Key, x => x.Value);
+            Config.Messages = Config.Messages.OrderBy(static x => x.Key).ToDictionary(static x => x.Key, static x => x.Value);
             // update config and write new values from plugin to config file if changed after update
             Config.Update();
             Console.WriteLine(Localizer["core.config"]);

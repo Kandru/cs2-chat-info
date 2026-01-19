@@ -16,21 +16,24 @@ namespace ChatInfo
         [CommandHelper(whoCanExecute: CommandUsage.CLIENT_ONLY, minArgs: 0, usage: "")]
         public void CommandInfo(CCSPlayerController player, CommandInfo command)
         {
-            if (Config.Messages.Count == 0) return;
+            if (Config.Messages.Count == 0)
+            {
+                return;
+            }
             // close any active menu
             MenuManager.CloseActiveMenu(player);
             // create menu to choose map
-            var menu = new ChatMenu(Localizer["menu.title"]);
-            foreach (var kvp in Config.Messages)
+            ChatMenu menu = new(Localizer["menu.title"]);
+            foreach (KeyValuePair<string, InfoMessagesConfig> kvp in Config.Messages)
             {
-                string description = kvp.Value.Description.TryGetValue(PlayerLanguageExtensions.GetLanguage(player).TwoLetterISOLanguageName, out var userDescription)
+                string description = kvp.Value.Description.TryGetValue(PlayerLanguageExtensions.GetLanguage(player).TwoLetterISOLanguageName, out string? userDescription)
                 ? userDescription
-                : (kvp.Value.Description.TryGetValue(CoreConfig.ServerLanguage, out var serverDescription)
+                : (kvp.Value.Description.TryGetValue(CoreConfig.ServerLanguage, out string? serverDescription)
                     ? serverDescription
                     : kvp.Value.Description.First().Value);
-                menu.AddMenuOption(kvp.Key + " = " + ReplaceChatColors(description),
+                _ = menu.AddMenuOption(kvp.Key + " = " + ReplaceChatColors(description),
             (_, _) => DisplaySubCommands(player, kvp.Key),
-            kvp.Value.SubCommands.Count > 0 ? false : true);
+            kvp.Value.SubCommands.Count <= 0);
             }
             // open menu
             MenuManager.OpenChatMenu(player, menu);
@@ -41,22 +44,24 @@ namespace ChatInfo
             Console.WriteLine($"DisplaySubCommands: {commandName}");
             if (player == null
                 || !player.IsValid
-                || !Config.Messages.ContainsKey(commandName)
-                || Config.Messages[commandName].SubCommands.Count == 0) return;
-            var command = Config.Messages[commandName];
+                || !Config.Messages.TryGetValue(commandName, out InfoMessagesConfig? command)
+                || command.SubCommands.Count == 0)
+            {
+                return;
+            }
             // close any active menu
             MenuManager.CloseActiveMenu(player);
             // create menu to choose map
-            var menu = new ChatMenu(Localizer["menu.subtitle"].Value
+            ChatMenu menu = new(Localizer["menu.subtitle"].Value
                 .Replace("{command}", commandName));
-            foreach (var kvp in command.SubCommands)
+            foreach (KeyValuePair<string, InfoMessagesConfig> kvp in command.SubCommands)
             {
-                string description = kvp.Value.Description.TryGetValue(PlayerLanguageExtensions.GetLanguage(player).TwoLetterISOLanguageName, out var userDescription)
+                string description = kvp.Value.Description.TryGetValue(PlayerLanguageExtensions.GetLanguage(player).TwoLetterISOLanguageName, out string? userDescription)
                 ? userDescription
-                : (kvp.Value.Description.TryGetValue(CoreConfig.ServerLanguage, out var serverDescription)
+                : (kvp.Value.Description.TryGetValue(CoreConfig.ServerLanguage, out string? serverDescription)
                     ? serverDescription
                     : kvp.Value.Description.First().Value);
-                menu.AddMenuOption(commandName + " " + kvp.Key + " = " + ReplaceChatColors(description), (_, _) => { }, true);
+                _ = menu.AddMenuOption(commandName + " " + kvp.Key + " = " + ReplaceChatColors(description), static (_, _) => { }, true);
             }
             MenuManager.OpenChatMenu(player, menu);
         }
@@ -66,7 +71,7 @@ namespace ChatInfo
         public void CommandMapVote(CCSPlayerController player, CommandInfo command)
         {
             string subCommand = command.GetArg(1);
-            switch (subCommand.ToLower())
+            switch (subCommand.ToLower(System.Globalization.CultureInfo.CurrentCulture))
             {
                 case "reload":
                     Config.Reload();
