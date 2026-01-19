@@ -6,7 +6,7 @@
 [![issues - cs2-map-modifier](https://img.shields.io/github/issues/Kandru/cs2-chat-info)](https://github.com/Kandru/cs2-chat-info/issues)
 [![](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/donate/?hosted_button_id=C2AVYKGVP9TRG)
 
-Define !info command entries a player will see when typing in !info. This allows for example to list rules, other commands, etc.
+Define *!info* command entries a player will see when typing in *!info*. This allows for example to list rules, other commands, links to your website, etc.
 
 ## Installation
 
@@ -26,7 +26,7 @@ This plugin automatically creates a readable JSON configuration file. This confi
   "enabled": true,
   "debug": false,
   "messages": {
-    "-\u003E Discord": {
+    "!Discord": {
       "description": {
         "en": "visit https://counterstrike.party",
         "de": "besuche https://counterstrike.party"
@@ -107,6 +107,19 @@ This plugin automatically creates a readable JSON configuration file. This confi
   },
   "ConfigVersion": 1
 }
+```
+
+### colors
+
+You can use the official supported colors of the [CSSharp Color List](https://docs.cssharp.dev/api/CounterStrikeSharp.API.Modules.Utils.ChatColors.html). Just use them as follows:
+
+```
+"!top": {
+  "description": {
+    "en": "{orange}Lists {green}players {blue}with best rankings"
+  },
+  "sub_commands": {}
+},
 ```
 
 ## Commands
