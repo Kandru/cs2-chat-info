@@ -28,7 +28,7 @@ namespace ChatInfo
                 : (kvp.Value.Description.TryGetValue(CoreConfig.ServerLanguage, out var serverDescription)
                     ? serverDescription
                     : kvp.Value.Description.First().Value);
-                menu.AddMenuOption(kvp.Key + " = " + description,
+                menu.AddMenuOption(kvp.Key + " = " + ReplaceChatColors(description),
             (_, _) => DisplaySubCommands(player, kvp.Key),
             kvp.Value.SubCommands.Count > 0 ? false : true);
             }
@@ -56,7 +56,7 @@ namespace ChatInfo
                 : (kvp.Value.Description.TryGetValue(CoreConfig.ServerLanguage, out var serverDescription)
                     ? serverDescription
                     : kvp.Value.Description.First().Value);
-                menu.AddMenuOption(commandName + " " + kvp.Key + " = " + description, (_, _) => { }, true);
+                menu.AddMenuOption(commandName + " " + kvp.Key + " = " + ReplaceChatColors(description), (_, _) => { }, true);
             }
             MenuManager.OpenChatMenu(player, menu);
         }
