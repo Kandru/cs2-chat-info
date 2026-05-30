@@ -1,13 +1,21 @@
+using CounterStrikeSharp.API.Modules.Utils;
+using System.Reflection;
+
 namespace ChatInfo
 {
     public partial class ChatInfo
     {
-        private void DebugPrint(string message)
+        private static string ReplaceChatColors(string message)
         {
-            if (Config.Debug)
+            foreach (FieldInfo field in typeof(ChatColors).GetFields(BindingFlags.Public | BindingFlags.Static))
             {
-                Console.WriteLine(Localizer["core.debugprint"].Value.Replace("{message}", message));
+                string pattern = $"{{{field.Name}}}";
+                if (message.Contains(pattern, StringComparison.OrdinalIgnoreCase))
+                {
+                    message = message.Replace(pattern, field.GetValue(null)?.ToString() ?? string.Empty, StringComparison.OrdinalIgnoreCase);
+                }
             }
+            return message;
         }
     }
 }
